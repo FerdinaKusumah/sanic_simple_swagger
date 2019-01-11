@@ -1,7 +1,7 @@
 # Sanic OpenAPI
 Real project in [https://github.com/huge-success/sanic-openapi](https://github.com/huge-success/sanic-openapi/blob/master/README.md)
 
-![Example Swagger UI](images/code-to-ui.png?raw=true "Swagger UI")
+![Example Swagger UI](https://raw.githubusercontent.com/huge-success/sanic-openapi/master/images/code-to-ui.png "Swagger UI")
 
 This project just extends functional and fix some bugs
 ## Installation
