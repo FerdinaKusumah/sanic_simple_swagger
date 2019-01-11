@@ -33,7 +33,7 @@ async def index(request):
 @doc.summary("Create resource")
 @doc.description("Store a newly created resource in storage.")
 @doc.consumes({'name': str}, location='body', description='Student name', example={'name': 'John meyer'}, required=True)
-@doc.consumes({'address': str}, location='body', description='Student address', example={'name': 'San Francisco, CA 94109 hone : (301) 916-0860'}, required=True)
+@doc.consumes({'address': str}, location='body', description='Student address', example={'address': 'San Francisco, CA 94109 hone : (301) 916-0860'}, required=True)
 async def store(request):
     ...
 
