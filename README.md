@@ -48,6 +48,13 @@ async def update(request, id):
 @doc.description("Remove the specified resource from storage.")
 async def delete(request, id):
     ...
+
+@student.get('/hello', strict_slashes=True)
+@doc.summary("API health")
+@doc.description("Check API health")
+@doc.tag('API Health')
+async def hello(request):
+    ...
 ```
 
 ### Configure all the things
