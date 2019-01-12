@@ -1,20 +1,23 @@
 # Sanic OpenAPI
 Real project in [https://github.com/huge-success/sanic-openapi](https://github.com/huge-success/sanic-openapi/blob/master/README.md)
 
+This project just extends functional and fix some bugs
 ![Example Swagger UI](https://raw.githubusercontent.com/huge-success/sanic-openapi/master/images/code-to-ui.png "Swagger UI")
 
-This project just extends functional and fix some bugs
 ## Installation
 ```shell
 pip install sanic-simple-swagger
 ```
-Add OpenAPI and Swagger UI:
+
+#### Add OpenAPI and Swagger UI:
 ```python
 from sanic_simple_swagger import swagger_blueprint, openapi_blueprint
 app.blueprint(openapi_blueprint)
 app.blueprint(swagger_blueprint)
 ```
-You'll now have a Swagger UI at the URL `/swagger/index.html`.  
+
+You'll now have a Swagger UI at the URL `/swagger/index.html`.
+
 Your routes will be automatically categorized by their blueprints.
 
 ## Example
@@ -24,8 +27,9 @@ from sanic_simple_swagger import doc
 @student.get('/student', strict_slashes=True)
 @doc.summary("Show resource")
 @doc.description("Display a listing of the resource.")
-@doc.deprecated(True)
-@doc.produces(schema={'type': "object", 'additionalProperties': {'type': "string", 'format': "string"}}, status=200, description='Success result', content_type='application/json')
+@doc.deprecated(True) #if the api is deprecated
+@doc.produces(schema={'type': "object", 'additionalProperties': {'type': 'string', 'format': 'string'}}, status=200, description='Success result', content_type='application/json')
+@doc.consumes({'name': str}, location='query', description='Student name', example={'name': 'john'})
 async def index(request):
     ...
 
@@ -48,16 +52,10 @@ async def update(request, id):
 @doc.description("Remove the specified resource from storage.")
 async def delete(request, id):
     ...
-
-@student.get('/hello', strict_slashes=True)
-@doc.summary("API health")
-@doc.description("Check API health")
-@doc.tag('API Health')
-async def hello(request):
-    ...
 ```
 
 ### Configure all the things
+
 ```python
 app.config['API_VERSION'] = '1.0.0'
 app.config['API_TITLE'] = 'Swagger Petstore'
@@ -68,3 +66,7 @@ app.config['API_LICENSE_NAME'] = 'Apache 2.0'
 app.config['API_LICENSE_URL'] = 'http://www.apache.org/licenses/LICENSE-2.0.html'
 app.config['schemes'] = ['http', 'https']
 ```
+
+## Reference
+1. [Sanic](https://github.com/huge-success/sanic)
+2. [Sanic OpenAPI](https://github.com/huge-success/sanic-openapi)
