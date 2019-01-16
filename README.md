@@ -64,10 +64,10 @@ async def delete(request, id):
 
 ```python
 app.config['API_VERSION'] = '1.0.0'
-app.config['API_TITLE'] = 'Swagger Petstore'
-app.config['API_DESCRIPTION'] = 'This is a sample server Petstore server. You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). For this sample, you can use the api key `special-key` to test the authorization filters.'
-app.config['API_TERMS_OF_SERVICE'] = 'http://swagger.io/terms/'
-app.config['API_CONTACT_EMAIL'] = 'http://swagger.io/terms/'
+app.config['API_TITLE'] = 'Swagger student API'
+app.config['API_DESCRIPTION'] = 'This is a sample server Student api.'
+app.config['API_TERMS_OF_SERVICE'] = ...
+app.config['API_CONTACT_EMAIL'] = ...
 app.config['API_LICENSE_NAME'] = 'Apache 2.0'
 app.config['API_LICENSE_URL'] = 'http://www.apache.org/licenses/LICENSE-2.0.html'
 app.config['schemes'] = ['http', 'https']
