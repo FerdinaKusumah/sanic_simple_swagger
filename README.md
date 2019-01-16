@@ -24,6 +24,10 @@ Your routes will be automatically categorized by their blueprints.
 ```python
 from sanic_simple_swagger import doc
 
+class Student:
+    name = str
+    address = str
+
 @student.get('/student', strict_slashes=True)
 @doc.summary("Show resource")
 @doc.description("Display a listing of the resource.")
@@ -36,20 +40,22 @@ async def index(request):
 @student.post('/student', strict_slashes=True)
 @doc.summary("Create resource")
 @doc.description("Store a newly created resource in storage.")
-@doc.consumes({'name': str}, location='body', description='Student name', example={'name': 'John meyer'}, required=True)
-@doc.consumes({'address': str}, location='body', description='Student address', example={'address': 'San Francisco, CA 94109 hone : (301) 916-0860'}, required=True)
+@doc.consumes(Student, location='body' required=True)
+@doc.response_success(status=201, description='If successful created')
 async def store(request):
     ...
 
 @student.put('/student/<id>', strict_slashes=True)
 @doc.summary("Update resource")
 @doc.description("Update the specified resource in storage.")
+@doc.response_success(status=201, description='If successful updated')
 async def update(request, id):
     ...
 
 @student.delete('/student/<id>', strict_slashes=True)
 @doc.summary("Remove resource")
 @doc.description("Remove the specified resource from storage.")
+@doc.response_success(status=201, description='If successful deleted')
 async def delete(request, id):
     ...
 ```

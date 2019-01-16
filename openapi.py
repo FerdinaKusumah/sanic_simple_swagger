@@ -100,7 +100,7 @@ def build_spec(app, loop):
                             **prop_spec,
                             'required': consumer.required,
                             'in': consumer.location,
-                            'name': name,
+                            'name': name if name else 'body',
                             'description': consumer.description,
                             'example': consumer.example,
                         }
@@ -109,7 +109,7 @@ def build_spec(app, loop):
                         **spec,
                         'required': consumer.required,
                         'in': consumer.location,
-                        'name': consumer.field.name if hasattr(consumer.field, 'name') else 'body',
+                        'name': 'body',
                         'description': consumer.description,
                         'example': consumer.example,
                     }
@@ -119,7 +119,7 @@ def build_spec(app, loop):
                     del route_param['$ref']
 
                 route_parameters.append(route_param)
-                
+            
             endpoint = remove_nulls({
                 'operationId': route_spec.operation or route.name,
                 'summary': route_spec.summary,
@@ -129,10 +129,9 @@ def build_spec(app, loop):
                 'tags': route_spec.tags or None,
                 'parameters': route_parameters,
                 'responses': {
-                    route_spec.produces_status: {
-                        "description": route_spec.produces_description,
-                        "examples": route_spec.produces_example,
-                        "schema": route_spec.produces,
+                    route_spec.response_status: {
+                        "description": route_spec.response_description,
+                        "schema": None
                     }
                 },
                 'deprecated': route_spec.deprecated or False,
@@ -149,7 +148,6 @@ def build_spec(app, loop):
     # --------------------------------------------------------------- #
     # Definitions
     # --------------------------------------------------------------- #
-
     _spec['definitions'] = {obj.object_name: definition for cls, (obj, definition) in definitions.items()}
 
     # --------------------------------------------------------------- #

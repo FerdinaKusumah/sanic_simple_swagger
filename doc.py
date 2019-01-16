@@ -116,7 +116,6 @@ class Object(Field):
 
         self.cls = cls
         self.object_name = object_name or cls.__name__
-
         if self.cls not in definitions:
             definitions[self.cls] = (self, self.definition)
 
@@ -189,12 +188,11 @@ def serialize_schema(schema):
 
 class RouteSpec(object):
     consumes = None
+    response_status = None
+    response_description = None
     consumes_content_type = None
     produces = None
     produces_content_type = None
-    produces_example = None
-    produces_description = None
-    produces_status = None
     summary = None
     description = None
     operation = None
@@ -285,7 +283,7 @@ def description(text):
         return func
     return inner
 
-def consumes(*args, content_type=None, description=None, example=None, location='query', required=False):
+def consumes(*args, content_type='application/json', description=None, example=None, location='query', required=False):
     def inner(func):
         if args:
             for arg in args:
@@ -296,14 +294,19 @@ def consumes(*args, content_type=None, description=None, example=None, location=
         return func
     return inner
 
-
-def produces(*args, schema, status=None, description=None, example=None, content_type=None):
+def response_success(status=200, description='Successful operation'):
     def inner(func):
-        route_specs[func].produces = schema
-        route_specs[func].produces_content_type = content_type
-        route_specs[func].produces_example = example
-        route_specs[func].produces_description = description
-        route_specs[func].produces_status = status
+        route_specs[func].response_status = status
+        route_specs[func].response_description = description
+        return func
+    return inner
+
+def produces(*args, content_type=None):
+    def inner(func):
+        if args:
+            field = RouteField(args[0])
+            route_specs[func].produces = field
+            route_specs[func].produces_content_type = content_type
         return func
     return inner
 
