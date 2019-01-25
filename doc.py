@@ -107,10 +107,10 @@ class List(Field):
         super().__init__(*args, **kwargs)
 
     def serialize(self):
-        if len(self.items) == 0:
-            items = String().serialize()
-        elif len(self.items) > 1:
+        if len(self.items) > 1:
             items = Tuple(self.items).serialize()
+        else:
+            items = String().serialize()
 
         return {
             "type": "array",
