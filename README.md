@@ -32,7 +32,7 @@ class Student:
 @doc.summary("Show resource")
 @doc.description("Display a listing of the resource.")
 @doc.deprecated(True) #if the api is deprecated
-@doc.produces(schema={'type': "object", 'additionalProperties': {'type': 'string', 'format': 'string'}}, status=200, description='Success result', content_type='application/json')
+@doc.produces(content_type='application/json')
 @doc.consumes({'name': str}, location='query', description='Student name', example={'name': 'john'})
 async def index(request):
     ...
