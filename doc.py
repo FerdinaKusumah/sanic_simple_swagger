@@ -57,8 +57,16 @@ class Boolean(Field):
 
 
 class Tuple(Field):
-    pass
-
+    def __init__(self, fields=None, **kwargs):
+        self.fields = fields
+        super().__init__(**kwargs)
+    
+    def serialize(self):
+        return {
+            "type": "object",
+            "properties": {obj: serialize_schema(str) for obj in self.fields},
+            **super().serialize()
+        }
 
 class Date(Field):
     def serialize(self):
@@ -99,10 +107,11 @@ class List(Field):
         super().__init__(*args, **kwargs)
 
     def serialize(self):
-        if len(self.items) > 1:
+        if len(self.items) == 0:
+            items = String().serialize()
+        elif len(self.items) > 1:
             items = Tuple(self.items).serialize()
-        elif self.items:
-            items = serialize_schema(self.items[0])
+
         return {
             "type": "array",
             "items": items
