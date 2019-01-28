@@ -1,5 +1,5 @@
 from collections import defaultdict
-from datetime import date, datetime
+from datetime import date, datetime, time
 
 
 class Field:
@@ -82,6 +82,16 @@ class DateTime(Field):
         return {
             "type": "string",
             "format": "date-time",
+            **super().serialize()
+        }
+
+class Time(Field):
+    def serialize(self):
+        date = datetime.now()
+        return {
+            "type": "string",
+            "format": "time",
+            "example": '{}:{}:{}'.format(date.hour, date.minute, date.second),
             **super().serialize()
         }
 
@@ -173,6 +183,8 @@ def serialize_schema(schema):
             return Date().serialize()
         elif schema is datetime:
             return DateTime().serialize()
+        elif schema is time:
+            return Time().serialize()
         else:
             return Object(schema).serialize()
 
