@@ -104,6 +104,11 @@ def build_spec(app, loop):
                             'description': consumer.description,
                             'example': consumer.example,
                         }
+                        if '$ref' in route_param:
+                            route_param["schema"] = {'$ref': route_param['$ref']}
+                            del route_param['$ref']
+
+                        route_parameters.append(route_param)
                 else:
                     route_param = {
                         **spec,
@@ -113,13 +118,12 @@ def build_spec(app, loop):
                         'description': consumer.description,
                         'example': consumer.example,
                     }
+                    if '$ref' in route_param:
+                        route_param["schema"] = {'$ref': route_param['$ref']}
+                        del route_param['$ref']
 
-                if '$ref' in route_param:
-                    route_param["schema"] = {'$ref': route_param['$ref']}
-                    del route_param['$ref']
-
-                route_parameters.append(route_param)
-            
+                    route_parameters.append(route_param)
+                    
             endpoint = remove_nulls({
                 'operationId': route_spec.operation or route.name,
                 'summary': route_spec.summary,
