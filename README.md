@@ -1,5 +1,7 @@
 # Sanic OpenAPI (This project is <strong>Deprecated</strong>)
 No longer supported
+
+
 Real project in [https://github.com/huge-success/sanic-openapi](https://github.com/huge-success/sanic-openapi/blob/master/README.md)
 
 This project just extends functional and fix some bugs
