@@ -1,4 +1,5 @@
-# Sanic OpenAPI
+# Sanic OpenAPI (This project is <strong>Deprecated</strong>)
+No longer supported
 Real project in [https://github.com/huge-success/sanic-openapi](https://github.com/huge-success/sanic-openapi/blob/master/README.md)
 
 This project just extends functional and fix some bugs
@@ -6,14 +7,15 @@ This project just extends functional and fix some bugs
 
 ## Installation
 ```shell
-pip install sanic-simple-swagger
+    pip install sanic-simple-swagger
 ```
 
 #### Add OpenAPI and Swagger UI:
 ```python
-from sanic_simple_swagger import swagger_blueprint, openapi_blueprint
-app.blueprint(openapi_blueprint)
-app.blueprint(swagger_blueprint)
+    from sanic_simple_swagger import swagger_blueprint, openapi_blueprint
+    
+    app.blueprint(openapi_blueprint)
+    app.blueprint(swagger_blueprint)
 ```
 
 You'll now have a Swagger UI at the URL `/swagger/index.html`.
